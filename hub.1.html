@@ -146,6 +146,8 @@ git but that are extended through hub, and custom ones that hub provides.</p>
 <dd>Delete a repository on GitHub.</dd>
 <dt><a href="./hub-fork.1.html">hub-fork(1)</a></dt>
 <dd>Fork the current repository on GitHub and add a git remote for it.</dd>
+<dt><a href="./hub-gist.1.html">hub-gist(1)</a></dt>
+<dd>Create and print GitHub Gists.</dd>
 <dt><a href="./hub-pull-request.1.html">hub-pull-request(1)</a></dt>
 <dd>Create a GitHub Pull Request.</dd>
 <dt><a href="./hub-pr.1.html">hub-pr(1)</a></dt>
@@ -235,16 +237,29 @@ this can be affected with the <code>GITHUB_HOST</code> environment variable:</p>
 
 <dl>
 <dt><code>HUB_VERBOSE</code></dt>
-<dd>Enable verbose output from hub commands.</dd>
+<dd>If this environment variable is set, verbose logging will be printed to
+stderr.</dd>
 <dt><code>HUB_CONFIG</code></dt>
 <dd>The file path where hub configuration is read from and stored. If
 <code>XDG_CONFIG_HOME</code> is present, the default is <code>$XDG_CONFIG_HOME/hub</code>;
 otherwise it's <code>$HOME/.config/hub</code>. The configuration file is also
 searched for in <code>XDG_CONFIG_DIRS</code> per XDG Base Directory Specification.</dd>
 <dt><code>HUB_PROTOCOL</code></dt>
-<dd>Use one of &quot;https|ssh|git&quot; as preferred protocol for git clone/push.</dd>
+<dd>One of &quot;https&quot;, &quot;ssh&quot;, or &quot;git&quot; as preferred protocol for git clone/push.</dd>
+<dt><code>GITHUB_HOST</code></dt>
+<dd>The GitHub hostname to default to instead of &quot;github.com&quot;.</dd>
 <dt><code>GITHUB_TOKEN</code></dt>
 <dd>OAuth token to use for GitHub API requests.</dd>
+<dt><code>GITHUB_USER</code></dt>
+<dd>The GitHub username of the actor of GitHub API operations.</dd>
+<dt><code>GITHUB_PASSWORD</code></dt>
+<dd>The GitHub password used to exchange user credentials for an OAuth token
+that gets stored in hub configuration. If not set, it may be interactively
+prompted for on first run.</dd>
+<dt><code>GITHUB_REPOSITORY</code></dt>
+<dd>A value in &quot;OWNER/REPO&quot; format that specifies the repository that API
+operations should be performed against. Currently only used to infer the
+default value of <code>GITHUB_USER</code> for API requests.</dd>
 </dl>
 
 <h2 id="bugs">Bugs</h2>
@@ -264,8 +279,9 @@ searched for in <code>XDG_CONFIG_DIRS</code> per XDG Base Directory Specificatio
 
 <footer>
   <ol class="man-head">
-    <li class="tl">hub version 2.11.2</li>
-    <li class="tc">14 Apr 2019</li>
+    <li class="tl">hub version 2.14.1</li>
+    <li class="tc">29 Jan 2020</li>
     <li class="tr"></li>
   </ol>
 </footer>
+

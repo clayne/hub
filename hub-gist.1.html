@@ -1,5 +1,5 @@
 <!doctype html>
-<title>hub-push(1) - Push a git branch to each of the listed remotes.</title>
+<title>hub-gist(1) - Create and print GitHub Gists</title>
 <meta charset="utf-8">
 
 <style>
@@ -75,33 +75,55 @@ a:link, a:hover, a:visited { color: blue }
 
 <header>
   <ol class="man-head">
-    <li class="tl">hub-push(1)</li>
+    <li class="tl">hub-gist(1)</li>
     <li class="tc">hub manual</li>
-    <li class="tr">hub-push(1)</li>
+    <li class="tr">hub-gist(1)</li>
   </ol>
 </header>
 
 <article>
-  <h1>Push a git branch to each of the listed remotes.</h1>
+  <h1>Create and print GitHub Gists</h1>
   
 <h2 id="synopsis">Synopsis</h2>
 
-<p><code>hub push</code> <var>REMOTE</var>[,<var>REMOTE2</var>...] [<var>REF</var>]</p>
+<p><code>hub gist</code> create [-oc] [--public] [<var>FILES</var>...]<br>
+<code>hub gist</code> show <var>ID</var> [<var>FILENAME</var>]</p>
+
+<h2 id="commands">Commands</h2>
+
+<dl>
+<dt><em>create</em></dt>
+<dd>Create a new gist. If no <var>FILES</var> are specified, the content is read from
+standard input.</dd>
+<dt><em>show</em></dt>
+<dd>Print the contents of a gist. If the gist contains multiple files, the
+operation will error out unless <var>FILENAME</var> is specified.</dd>
+</dl>
+
+<h2 id="options">Options</h2>
+
+<dl>
+<dt>--public</dt>
+<dd>Make the new gist public (default: false).</dd>
+<dt>-o, --browse</dt>
+<dd>Open the new gist in a web browser.</dd>
+<dt>-c, --copy</dt>
+<dd>Put the URL of the new gist to clipboard instead of printing it.</dd>
+</dl>
 
 <h2 id="examples">Examples</h2>
 
-<pre><code>$ hub push origin,staging,qa bert_timeout
-&gt; git push origin bert_timeout
-&gt; git push staging bert_timeout
-&gt; git push qa bert_timeout
+<pre><code>$ echo hello | hub gist create --public
 
-$ hub push origin
-&gt; git push origin HEAD
+$ hub gist create file1.txt file2.txt
+
+# print a specific file within a gist:
+$ hub gist show ID testfile1.txt
 </code></pre>
 
 <h2 id="see-also">See also</h2>
 
-<p><a href="./hub.1.html">hub(1)</a>, git-push(1)</p>
+<p><a href="./hub.1.html">hub(1)</a>, <a href="./hub-api.1.html">hub-api(1)</a></p>
 
 </article>
 

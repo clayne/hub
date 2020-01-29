@@ -90,15 +90,12 @@ a:link, a:hover, a:visited { color: blue }
 <code>hub release</code> show [-f <var>FORMAT</var>] <var>TAG</var><br>
 <code>hub release</code> create [-dpoc] [-a <var>FILE</var>] [-m <var>MESSAGE</var>|-F <var>FILE</var>] [-t <var>TARGET</var>] <var>TAG</var><br>
 <code>hub release</code> edit [<var>options</var>] <var>TAG</var><br>
-<code>hub release</code> download <var>TAG</var><br>
+<code>hub release</code> download <var>TAG</var> [-i <var>PATTERN</var>]<br>
 <code>hub release</code> delete <var>TAG</var></p>
 
 <h2 id="commands">Commands</h2>
 
 <p>With no arguments, shows a list of existing releases.</p>
-
-<p>With <code>--include-drafts</code>, include draft releases in the listing.
-With <code>--exclude-prereleases</code>, exclude non-stable releases from the listing.</p>
 
 <dl>
 <dt><em>show</em></dt>
@@ -112,9 +109,9 @@ does not exist, it will be created at <var>TARGET</var> (default: current branch
 <dd><p>Edit the GitHub release for the specified <var>TAG</var> name. Accepts the same
 options as <em>create</em> command. Publish a draft with <code>--draft=false</code>.</p>
 
-<p>When <var>MESSAGE</var> or <var>FILE</var> are not specified, a text editor will open
-pre-populated with current release title and body. To re-use existing title
-and body unchanged, pass <code>-m &quot;&quot;</code>.</p></dd>
+<p>Without <code>--message</code> or <code>--file</code>, a text editor will open pre-populated with
+the current release title and body. To re-use existing title and body
+unchanged, pass <code>-m &quot;&quot;</code>.</p></dd>
 <dt><em>download</em></dt>
 <dd><p>Download the assets attached to release for the specified <var>TAG</var>.</p></dd>
 <dt><em>delete</em></dt>
@@ -125,6 +122,10 @@ this does <strong>not</strong> remove the git tag <var>TAG</var>.</p></dd>
 <h2 id="options">Options</h2>
 
 <dl>
+<dt>-d, --include-drafts</dt>
+<dd><p>List drafts together with published releases.</p></dd>
+<dt>-p, --exclude-prereleases</dt>
+<dd><p>Exclude prereleases from the list.</p></dd>
 <dt>-L, --limit</dt>
 <dd><p>Display only the first <var>LIMIT</var> releases.</p></dd>
 <dt>-d, --draft</dt>
@@ -134,18 +135,23 @@ this does <strong>not</strong> remove the git tag <var>TAG</var>.</p></dd>
 <dt>-a, --attach <var>FILE</var></dt>
 <dd><p>Attach a file as an asset for this release.</p>
 
-<p>If <var>FILE</var> is in the &quot;<var>filename</var>#<var>text</var>&quot; format, the text after the <code>#</code>
+<p>If <var>FILE</var> is in the &quot;<var>filename</var>#<var>text</var>&quot; format, the text after the &quot;#&quot;
 character is taken as asset label.</p></dd>
 <dt>-m, --message <var>MESSAGE</var></dt>
 <dd><p>The text up to the first blank line in <var>MESSAGE</var> is treated as the release
 title, and the rest is used as release description in Markdown format.</p>
 
-<p>If multiple <var>MESSAGE</var> options are given, their values are concatenated as
-separate paragraphs.</p></dd>
+<p>When multiple <code>--message</code> are passed, their values are concatenated with a
+blank line in-between.</p>
+
+<p>When neither <code>--message</code> nor <code>--file</code> were supplied to <code>release create</code>, a
+text editor will open to author the title and description in.</p></dd>
 <dt>-F, --file <var>FILE</var></dt>
-<dd><p>Read the release title and description from <var>FILE</var>.</p></dd>
+<dd><p>Read the release title and description from <var>FILE</var>. Pass &quot;-&quot; to read from
+standard input instead. See <code>--message</code> for the formatting rules.</p></dd>
 <dt>-e, --edit</dt>
-<dd><p>Further edit the contents of <var>FILE</var> in a text editor before submitting.</p></dd>
+<dd><p>Open the release title and description in a text editor before submitting.
+This can be used in combination with <code>--message</code> or <code>--file</code>.</p></dd>
 <dt>-o, --browse</dt>
 <dd><p>Open the new release in a web browser.</p></dd>
 <dt>-c, --copy</dt>
@@ -153,6 +159,8 @@ separate paragraphs.</p></dd>
 <dt>-t, --commitish <var>TARGET</var></dt>
 <dd><p>A commit SHA or branch name to attach the release to, only used if <var>TAG</var>
 does not already exist (default: main branch).</p></dd>
+<dt>-i, --include <var>PATTERN</var></dt>
+<dd><p>Filter the files in the release to those that match the glob <var>PATTERN</var>.</p></dd>
 <dt>-f, --format <var>FORMAT</var></dt>
 <dd><p>Pretty print releases using <var>FORMAT</var> (default: &quot;%T%n&quot;). See the &quot;PRETTY
 FORMATS&quot; section of git-log(1) for some additional details on how
@@ -212,8 +220,9 @@ of &quot;always&quot; (default for <code>--color</code>), &quot;never&quot;, or 
 
 <footer>
   <ol class="man-head">
-    <li class="tl">hub version 2.11.2</li>
-    <li class="tc">14 Apr 2019</li>
+    <li class="tl">hub version 2.14.1</li>
+    <li class="tc">29 Jan 2020</li>
     <li class="tr"></li>
   </ol>
 </footer>
+
